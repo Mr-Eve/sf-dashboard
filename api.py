@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import sqlite3
 from datetime import datetime, timedelta
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -17,6 +18,10 @@ def ensure_schema(db: sqlite3.Connection) -> None:
         )
     ''')
     db.commit()
+
+@app.route('/')
+def index():
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'dashboard.html')
 
 @app.route('/events')
 def get_events():

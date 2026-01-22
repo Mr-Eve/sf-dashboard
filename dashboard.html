@@ -3,118 +3,285 @@
 <head>
     <meta http-equiv="refresh" content="300">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body { 
             margin:0; 
             background:#000; 
             color:#0f0; 
-            font-family:'Trebuchet MS', sans-serif; 
-            font-size:18px;
+            font-family:'Courier New', monospace;
+            font-size:16px;
             overflow:hidden;
             height:100vh;
             display:flex;
             flex-direction:column;
         }
+        
+        /* Top header bar */
         .top-bar {
-            height:80px;
-            border-bottom:2px solid #0f0;
+            background:#000;
+            border:2px solid #0f0;
+            border-bottom-width:3px;
+            padding:15px 20px;
             display:flex;
+            justify-content:space-between;
             align-items:center;
-            justify-content:center;
-            font-size:48px;
-            font-family:'Courier New', monospace;
-            color:#0f0;
-            font-weight:bold;
         }
+        
+        .top-bar-left {
+            font-size:20px;
+            font-weight:bold;
+            letter-spacing:2px;
+        }
+        
+        .top-bar-left::before {
+            content:'◄◄◄ ';
+            color:#0f0;
+        }
+        
+        .top-bar-left::after {
+            content:' ►►►';
+            color:#0f0;
+        }
+        
+        .top-bar-center {
+            font-size:42px;
+            font-weight:bold;
+            letter-spacing:3px;
+        }
+        
+        .top-bar-right {
+            font-size:14px;
+            opacity:0.8;
+        }
+        
+        /* Main content area */
         .main-content {
             display:grid; 
-            grid-template-columns:600px 1fr; 
-            height:calc(100vh - 82px);
+            grid-template-columns:650px 1fr; 
+            height:calc(100vh - 115px);
+            overflow:hidden;
         }
+        
+        /* Weather panel */
         .weather { 
-            padding:30px; 
+            padding:20px;
             border-right:2px solid #0f0;
             display:flex;
             flex-direction:column;
-            font-family:'Courier New', monospace;
-            overflow-x:auto;
+            background:#0a0a0a;
+            overflow-y:auto;
         }
-        .weather h1 { 
-            margin:0 0 20px 0;
-            font-size:28px;
-            font-family:'Trebuchet MS', sans-serif;
+        
+        .section-header {
+            margin:0 0 15px 0;
+            padding:10px;
+            font-size:18px;
+            font-weight:bold;
+            letter-spacing:2px;
+            border:2px solid #0f0;
+            background:#000;
+            text-align:center;
         }
+        
+        .section-header::before {
+            content:'━━━ ';
+            color:#0f0;
+        }
+        
+        .section-header::after {
+            content:' ━━━';
+            color:#0f0;
+        }
+        
+        .data-box {
+            background:#111;
+            border:2px solid #0f0;
+            padding:15px;
+            margin-bottom:15px;
+        }
+        
         #weather-data {
-            font-size:16px;
-            line-height:1.5;
+            font-size:15px;
+            line-height:1.6;
             white-space:pre;
             color:#0f0;
         }
+        
         .weather-now {
             font-size:24px;
             font-weight:bold;
             color:#0f0;
         }
-        .events { 
-            padding:30px;
-            overflow-y:auto;
+        
+        .sun-times { 
+            color:#fa0; 
+            font-weight:bold;
         }
+        
+        .temp-cold {
+            color:#0af;
+        }
+        
+        .temp-cool {
+            color:#0f0;
+        }
+        
+        .temp-warm {
+            color:#fa0;
+        }
+        
+        .temp-hot {
+            color:#f33;
+        }
+        
+        /* Events panel */
+        .events { 
+            padding:20px;
+            overflow-y:auto;
+            background:#0a0a0a;
+        }
+        
         #date-header { 
             margin:0 0 20px 0;
-            font-size:28px;
-            border-bottom:1px solid #0f0;
-            padding-bottom:10px;
-            line-height:1.4;
+            padding:15px;
+            font-size:24px;
+            border:2px solid #0f0;
+            background:#000;
+            text-align:center;
+            letter-spacing:2px;
         }
+        
+        .date-line { 
+            font-size:32px; 
+            font-weight:bold;
+        }
+        
         .event { 
-            padding:20px; 
-            margin:15px 0; 
-            background:#111; 
-            border-left:4px solid #0f0;
-            font-size:20px;
-            border-radius:0 5px 5px 0;
+            padding:15px 20px;
+            margin:12px 0;
+            background:#111;
+            border:2px solid #0f0;
+            position:relative;
+            transition:all 0.2s;
         }
+        
         .event:hover {
             background:#1a1a1a;
-            border-left-color:#0ff;
+            border-color:#0ff;
         }
+        
         .event-date { 
             color:#0f0; 
             font-weight:bold;
-            font-size:18px;
+            font-size:16px;
+            letter-spacing:1px;
         }
+        
         .event-title {
             color:#0f0;
-            font-size:22px;
-            margin-top:5px;
+            font-size:19px;
+            margin-top:8px;
+            letter-spacing:0.5px;
         }
-        .date-line { font-size:36px; font-weight:bold; }
-        .sun-times { color:#fa0; font-weight:bold; }
+        
+        /* Status bar */
+        .status-bar {
+            background:#000;
+            border-top:2px solid #0f0;
+            padding:8px 20px;
+            display:flex;
+            justify-content:space-between;
+            font-size:13px;
+        }
+        
+        .status-item {
+            display:flex;
+            align-items:center;
+            gap:10px;
+        }
+        
+        .status-indicator {
+            display:inline-block;
+            width:8px;
+            height:8px;
+            background:#0f0;
+            animation:pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity:1; }
+            50% { opacity:0.3; }
+        }
+        
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width:12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background:#000;
+            border-left:2px solid #0f0;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background:#0f0;
+            border:2px solid #000;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background:#0ff;
+        }
     </style>
 </head>
 <body>
+    <!-- Top Header Bar -->
     <div class="top-bar">
-        <div id="current-time"></div>
+        <div class="top-bar-left">SF-DASHBOARD v1.0</div>
+        <div class="top-bar-center" id="current-time"></div>
+        <div class="top-bar-right">ONLINE</div>
     </div>
+    
+    <!-- Main Content -->
     <div class="main-content">
         <div class="weather">
-            <h1>SF WEATHER - 48HR</h1>
-            <div id="weather-data">Loading...</div>
+            <div class="section-header">SF WEATHER - 48HR</div>
+            <div class="data-box">
+                <div id="weather-data">Loading...</div>
+            </div>
         </div>
         <div class="events">
             <div id="date-header">Loading...</div>
             <div id="list">Loading events...</div>
         </div>
     </div>
+    
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <div class="status-item">
+            <span class="status-indicator"></span>
+            <span>API: ACTIVE</span>
+        </div>
+        <div class="status-item">
+            <span>EVENTS: <span id="event-count">0</span></span>
+        </div>
+        <div class="status-item">
+            <span id="last-update">LAST UPDATE: --:--</span>
+        </div>
+    </div>
+    
     <script>
         // Update time every second in PST
         function updateTime() {
             const now = new Date();
             const pstTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Los_Angeles"}));
             const time = pstTime.toLocaleTimeString('en-US', { 
-                hour: 'numeric', 
+                hour: '2-digit', 
                 minute: '2-digit', 
                 second: '2-digit',
-                hour12: true 
+                hour12: false 
             });
             document.getElementById('current-time').innerHTML = time;
         }
@@ -137,18 +304,31 @@
                 
                 // Get current temperature from first hour
                 const currentTemp = Math.round(meteoData.hourly.temperature_2m[0]);
-                let html = `<span class="weather-now">Now: ${currentTemp}°F</span>\n`;
+                
+                // Determine temperature color class
+                let tempClass = 'temp-cool';
+                if (currentTemp <= 50) {
+                    tempClass = 'temp-cold';
+                } else if (currentTemp <= 65) {
+                    tempClass = 'temp-cool';
+                } else if (currentTemp <= 80) {
+                    tempClass = 'temp-warm';
+                } else {
+                    tempClass = 'temp-hot';
+                }
+                
+                let html = `<span class="weather-now">► NOW: <span class="${tempClass}">${currentTemp}°F</span></span>\n`;
                 
                 // Add sunrise/sunset with bars
                 if (meteoData.daily && meteoData.daily.sunrise && meteoData.daily.sunset) {
                     const sunrise = new Date(meteoData.daily.sunrise[0]).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true}).toLowerCase();
                     const sunset = new Date(meteoData.daily.sunset[0]).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true}).toLowerCase();
                     
-                    html += `━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                    html += `<span class="sun-times">Sunrise: ${sunrise} | Sunset: ${sunset}</span>\n`;
-                    html += `━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    html += `<span class="sun-times">☀ ${sunrise} → ${sunset}</span>\n`;
+                    html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                 } else {
-                    html += `━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                    html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                 }
                 
                 // Get hourly data
@@ -185,9 +365,10 @@
                     const rainChance = rain[idx] || 0;
                     
                     // Create line with rain displayed inline - only show 15% or higher
-                    let line = `${day}, ${period}: ${temp}°F`;
+                    const periodPadded = period.padEnd(5, ' ');
+                    let line = `${day}, ${periodPadded} ${temp}°F`;
                     if(rainChance >= 15) {
-                        line += `     ☔${rainChance}%`;
+                        line += `  ☔ ${rainChance}%`;
                     }
                     html += line + '\n';
                 }
@@ -197,9 +378,10 @@
             .catch(err => {
                 console.error('Weather error:', err);
                 document.getElementById('weather-data').innerHTML = 
-                    '<span class="weather-now">Weather unavailable</span>\n' +
-                    '━━━━━━━━━━━━━━━━━━━━━━━\n' +
-                    'Refresh in 5 minutes';
+                    '<span class="weather-now">⚠ WEATHER DATA UNAVAILABLE</span>\n' +
+                    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n' +
+                    'API connection failed.\n' +
+                    'Auto-refresh in 5 minutes...';
             });
 
         // Show current date with short day name (no year)
@@ -211,7 +393,7 @@
             day: 'numeric'
         });
         document.getElementById('date-header').innerHTML = 
-            `<span class="date-line">${dayName}, ${dateStr}</span><br>NEXT 7 DAYS`;
+            `<span class="date-line">${dayName}, ${dateStr}</span><br><span style="font-size:16px; letter-spacing:3px;">━━━ NEXT 7 DAYS ━━━</span>`;
 
         // Function to load events
         function loadEvents() {
@@ -220,8 +402,21 @@
                 .then(events => {
                     const list = document.getElementById('list');
                     list.innerHTML = '';
+                    
+                    // Update event count in status bar
+                    document.getElementById('event-count').textContent = events.length;
+                    
+                    // Update last update time
+                    const now = new Date();
+                    const timeStr = now.toLocaleTimeString('en-US', { 
+                        hour: '2-digit', 
+                        minute: '2-digit',
+                        hour12: false 
+                    });
+                    document.getElementById('last-update').textContent = `LAST UPDATE: ${timeStr}`;
+                    
                     if(events.length === 0) {
-                        list.innerHTML = '<div class="event">No events scheduled</div>';
+                        list.innerHTML = '<div class="event"><div class="event-title">[ NO EVENTS SCHEDULED ]</div></div>';
                     } else {
                         events.forEach(e => {
                             list.innerHTML += `<div class="event">
@@ -232,7 +427,8 @@
                     }
                 })
                 .catch(err => {
-                    document.getElementById('list').innerHTML = '<div class="event">API not running</div>';
+                    document.getElementById('list').innerHTML = '<div class="event"><div class="event-title">[ API CONNECTION ERROR ]</div></div>';
+                    document.getElementById('event-count').textContent = '--';
                 });
         }
 

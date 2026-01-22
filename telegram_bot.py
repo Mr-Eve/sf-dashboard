@@ -20,6 +20,29 @@ def init_database():
     db.commit()
     db.close()
 
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Handle the /start command"""
+    try:
+        welcome_message = (
+            "👋 Welcome to the SF Dashboard Bot!\n\n"
+            "Available commands:\n"
+            "• /add <day> <time> <title> - Add an event\n"
+            "• /list - Show all upcoming events\n"
+            "• /delete <keywords> - Delete events\n"
+            "• /clear - Clear all events\n\n"
+            "Examples:\n"
+            "/add Tue 2pm Team meeting\n"
+            "/add Tomorrow 9am Coffee\n"
+            "/add Sep-24 3pm Dentist"
+        )
+        await update.message.reply_text(welcome_message)
+    except Exception as e:
+        print(f"Error in start_command: {e}")
+        try:
+            await update.message.reply_text("Welcome! Use /list to see available commands.")
+        except:
+            pass
+
 async def add_event(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         if len(context.args) < 3:
@@ -104,6 +127,9 @@ async def add_event(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(f'Added: {date_display} - {title}')
     
     except Exception as e:
+        print(f"Error in add_event: {e}")
+        import traceback
+        traceback.print_exc()
         await update.message.reply_text('Sorry, there was an error adding your event. Please try again.')
 
 async def list_events(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -129,6 +155,9 @@ async def list_events(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await update.message.reply_text(msg)
     
     except Exception as e:
+        print(f"Error in list_events: {e}")
+        import traceback
+        traceback.print_exc()
         await update.message.reply_text('Sorry, there was an error retrieving events. Please try again.')
 
 async def delete_event(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -167,13 +196,23 @@ def main():
     init_database()
     
     app = Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start_command))
     app.add_handler(CommandHandler("add", add_event))
     app.add_handler(CommandHandler("list", list_events))
     app.add_handler(CommandHandler("delete", delete_event))
     app.add_handler(CommandHandler("clear", clear_all))
     
     print("Bot starting...")
-    app.run_polling(drop_pending_updates=True)
+    print("Bot is ready! Send /list to see commands.")
+    print("Waiting for messages...")
+    try:
+        app.run_polling(drop_pending_updates=True)
+    except KeyboardInterrupt:
+        print("\nBot stopped by user")
+    except Exception as e:
+        print(f"Error: {e}")
+        import traceback
+        traceback.print_exc()
 
 if __name__ == "__main__":
     main()
