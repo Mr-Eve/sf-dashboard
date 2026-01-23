@@ -3,15 +3,25 @@
 <head>
     <meta http-equiv="refresh" content="300">
     <style>
+        @font-face {
+            font-family: 'Departure Mono';
+            src: url('/fonts/DepartureMono-Regular.woff2') format('woff2'),
+                 url('/fonts/DepartureMono-Regular.woff') format('woff'),
+                 url('/fonts/DepartureMono-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             box-sizing: border-box;
         }
-        
-        body { 
-            margin:0; 
-            background:#000; 
-            color:#0f0; 
-            font-family:'Courier New', monospace;
+
+        body {
+            margin:0;
+            background:#000;
+            color:#0f0;
+            font-family:'Departure Mono', 'Courier New', monospace;
             font-size:16px;
             overflow:hidden;
             height:100vh;
@@ -59,20 +69,28 @@
         
         /* Main content area */
         .main-content {
-            display:grid; 
-            grid-template-columns:650px 1fr; 
+            display:grid;
+            grid-template-columns:450px 1fr;
             height:calc(100vh - 115px);
+            overflow:hidden;
+        }
+
+        /* Left column containing weather and markets */
+        .left-column {
+            display:flex;
+            flex-direction:column;
+            border-right:2px solid #0f0;
             overflow:hidden;
         }
         
         /* Weather panel */
-        .weather { 
+        .weather {
             padding:20px;
-            border-right:2px solid #0f0;
             display:flex;
             flex-direction:column;
             background:#0a0a0a;
             overflow-y:auto;
+            flex:0 0 auto;
         }
         
         .section-header {
@@ -137,8 +155,157 @@
             color:#f33;
         }
         
+        /* Doomsday clock panel */
+        .doomsday {
+            padding:15px;
+            background:#0a0a0a;
+            border-top:2px solid #0f0;
+            flex:0 0 auto;
+        }
+
+        .doomsday-clock {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:20px;
+            padding:10px;
+        }
+
+        .clock-display {
+            font-size:48px;
+            font-weight:bold;
+            color:#f33;
+            text-shadow:0 0 10px #f33;
+            font-family:'Departure Mono', 'Courier New', monospace;
+            letter-spacing:2px;
+        }
+
+        .clock-display.safe {
+            color:#0f0;
+            text-shadow:0 0 10px #0f0;
+        }
+
+        .clock-display.warning {
+            color:#fa0;
+            text-shadow:0 0 10px #fa0;
+        }
+
+        .clock-display.danger {
+            color:#f33;
+            text-shadow:0 0 10px #f33;
+        }
+
+        .clock-info {
+            display:flex;
+            flex-direction:column;
+            gap:4px;
+        }
+
+        .clock-label {
+            font-size:11px;
+            color:#666;
+            letter-spacing:1px;
+        }
+
+        .clock-risk {
+            font-size:14px;
+            font-weight:bold;
+        }
+
+        .minutes-bar {
+            height:8px;
+            background:#222;
+            border:1px solid #333;
+            margin-top:8px;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .minutes-bar-fill {
+            height:100%;
+            transition:width 0.5s ease;
+        }
+
+        .doomsday-markets {
+            font-size:9px;
+            color:#555;
+            margin-top:8px;
+            max-height:60px;
+            overflow:hidden;
+            line-height:1.4;
+        }
+
+        /* Markets panel */
+        .markets {
+            padding:15px;
+            overflow-y:auto;
+            background:#0a0a0a;
+            flex:1;
+            border-top:2px solid #0f0;
+            display:flex;
+            flex-direction:column;
+        }
+
+        .markets-chart-container {
+            flex:1;
+            min-height:100px;
+            border: 0px solid #0f0;
+            background:#000;
+            margin-bottom:10px;
+            padding:10px;
+            font-family:'Departure Mono', 'Courier New', monospace;
+            font-size:18px;
+            overflow:hidden;
+        }
+
+        .chart-row {
+            display:flex;
+            flex-direction:column;
+            margin-bottom:8px;
+        }
+
+        .chart-bar {
+            display:flex;
+            align-items:center;
+            white-space:nowrap;
+            font-size:18px;
+            line-height:1;
+            height:20px;
+        }
+
+        .chart-bar-fill {
+            height:16px;
+            min-width:4px;
+        }
+
+        .chart-label {
+            font-size:10px;
+            color:#666;
+            margin-top:2px;
+            white-space:nowrap;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            width:100%;
+        }
+
+        .chart-line {
+            height:2px;
+            margin-right:2px;
+        }
+
+        .chart-axis {
+            color:#444;
+            font-size:10px;
+            display:flex;
+            justify-content:space-between;
+            border-top:1px solid #333;
+            padding-top:4px;
+            margin-top:4px;
+        }
+
+
         /* Events panel */
-        .events { 
+        .events {
             padding:20px;
             overflow-y:auto;
             background:#0a0a0a;
@@ -246,10 +413,41 @@
     
     <!-- Main Content -->
     <div class="main-content">
-        <div class="weather">
-            <div class="section-header">SF WEATHER - 48HR</div>
-            <div class="data-box">
-                <div id="weather-data">Loading...</div>
+        <div class="left-column">
+            <div class="weather">
+                <div class="section-header">SF WEATHER</div>
+                <div class="data-box">
+                    <div id="weather-data">Loading...</div>
+                </div>
+            </div>
+            <div class="doomsday">
+                <div class="section-header">DOOMSDAY CLOCK</div>
+                <div class="doomsday-clock">
+                    <div class="clock-display" id="doomsday-time">--:--</div>
+                    <div class="clock-info">
+                        <div class="clock-label">MINUTES TO MIDNIGHT</div>
+                        <div class="clock-risk" id="doomsday-minutes">--</div>
+                        <div class="clock-label">P(DOOMSDAY TODAY)</div>
+                        <div class="clock-risk" id="doomsday-risk">--%</div>
+                    </div>
+                </div>
+                <div class="minutes-bar">
+                    <div class="minutes-bar-fill" id="doomsday-bar"></div>
+                </div>
+                <div class="doomsday-markets" id="doomsday-factors"></div>
+            </div>
+            <div class="markets">
+                <div class="section-header">PREDICTION MARKETS</div>
+                <div class="markets-chart-container">
+                    <div id="markets-chart"></div>
+                    <div class="chart-axis">
+                        <span>0%</span>
+                        <span>25%</span>
+                        <span>50%</span>
+                        <span>75%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="events">
@@ -263,6 +461,9 @@
         <div class="status-item">
             <span class="status-indicator"></span>
             <span>API: ACTIVE</span>
+        </div>
+        <div class="status-item">
+            <span>MARKETS: <span id="market-count">0</span></span>
         </div>
         <div class="status-item">
             <span>EVENTS: <span id="event-count">0</span></span>
@@ -437,6 +638,172 @@
 
         // Auto-refresh events every 1 second for real-time updates
         setInterval(loadEvents, 1000);
+
+        // Color palette for market lines
+        const marketColors = [
+            '#0f0',    // green
+            '#0ff',    // cyan
+            '#f0f',    // magenta
+            '#ff0',    // yellow
+            '#f80',    // orange
+            '#08f',    // blue
+            '#f55',    // red
+            '#5f5',    // light green
+        ];
+
+        // Draw ASCII horizontal lines chart
+        function drawMarketsChart(markets) {
+            const chartDiv = document.getElementById('markets-chart');
+            const container = document.querySelector('.markets-chart-container');
+
+            if (markets.length === 0) {
+                chartDiv.innerHTML = '<div style="color:#555;padding:20px;text-align:center;">NO DATA</div>';
+                return;
+            }
+
+            // Calculate max chars based on container width
+            // Approximate: container width / char width (roughly 10.8px for 18px monospace) - space for percentage
+            const containerWidth = container.clientWidth - 20; // padding
+            const charWidth = 10.8;
+            const maxChars = Math.floor((containerWidth - 60) / charWidth); // 60px for "100%" label
+
+            // Sort by probability (highest first) so markets can overtake each other
+            const sortedMarkets = [...markets].sort((a, b) => {
+                const probA = a.probability > 1 ? a.probability : a.probability * 100;
+                const probB = b.probability > 1 ? b.probability : b.probability * 100;
+                return probB - probA;
+            });
+
+            let html = '';
+            sortedMarkets.forEach((market, idx) => {
+                const color = marketColors[idx % marketColors.length];
+                const prob = market.probability;
+                const normProb = prob > 1 ? prob / 100 : prob;
+                const barWidth = Math.max(normProb * 100, 1);
+                const probDisplay = prob > 1 ? prob.toFixed(0) : (prob * 100).toFixed(0);
+
+                html += `<div class="chart-row">
+                    <div class="chart-bar">
+                        <div class="chart-bar-fill" style="background:${color};width:${barWidth}%"></div>
+                        <span style="color:${color};padding-left:8px">${probDisplay}%</span>
+                    </div>
+                    <div class="chart-label" style="color:${color}">${market.question}</div>
+                </div>`;
+            });
+
+            chartDiv.innerHTML = html;
+        }
+
+        // Redraw on resize
+        window.addEventListener('resize', () => {
+            fetch('/markets').then(r => r.json()).then(drawMarketsChart).catch(() => {});
+        });
+
+        // Function to load markets
+        function loadMarkets() {
+            fetch('/markets')
+                .then(r => r.json())
+                .then(markets => {
+                    document.getElementById('market-count').textContent = markets.length;
+                    drawMarketsChart(markets);
+                })
+                .catch(err => {
+                    console.error('Markets error:', err);
+                });
+        }
+
+        // Load markets initially and refresh every 10 seconds for live updates
+        loadMarkets();
+        setInterval(loadMarkets, 10000);
+
+        // Refresh market prices from API every 30 seconds
+        setInterval(() => {
+            fetch('/markets/refresh', { method: 'POST' });
+        }, 30000);
+
+        // Function to load doomsday clock data
+        function loadDoomsday() {
+            fetch('/markets/doomsday')
+                .then(r => r.json())
+                .then(data => {
+                    const timeEl = document.getElementById('doomsday-time');
+                    const minutesEl = document.getElementById('doomsday-minutes');
+                    const riskEl = document.getElementById('doomsday-risk');
+                    const barEl = document.getElementById('doomsday-bar');
+                    const factorsEl = document.getElementById('doomsday-factors');
+
+                    // Update clock time
+                    timeEl.textContent = data.clock_time || '--:--';
+
+                    // Set color based on daily probability
+                    // 0.001% = safe (green), 0.01% = warning (orange), 0.1%+ = danger (red)
+                    timeEl.classList.remove('safe', 'warning', 'danger');
+                    if (data.risk_score < 0.001) {
+                        timeEl.classList.add('safe');
+                        barEl.style.background = '#0f0';
+                    } else if (data.risk_score < 0.01) {
+                        timeEl.classList.add('warning');
+                        barEl.style.background = '#fa0';
+                    } else {
+                        timeEl.classList.add('danger');
+                        barEl.style.background = '#f33';
+                    }
+
+                    // Update stats
+                    minutesEl.textContent = data.minutes_to_midnight ? data.minutes_to_midnight.toFixed(1) + ' min' : '--';
+
+                    // Format daily probability (will be very small, like 0.0023%)
+                    if (data.risk_score !== undefined && data.risk_score !== null) {
+                        if (data.risk_score < 0.0001) {
+                            riskEl.textContent = data.risk_score.toExponential(2);
+                        } else if (data.risk_score < 0.01) {
+                            riskEl.textContent = data.risk_score.toFixed(4) + '%';
+                        } else if (data.risk_score < 1) {
+                            riskEl.textContent = data.risk_score.toFixed(3) + '%';
+                        } else {
+                            riskEl.textContent = data.risk_score.toFixed(2) + '%';
+                        }
+                    } else {
+                        riskEl.textContent = '--%';
+                    }
+
+                    // Update bar (60 min = 0%, 0 min = 100%)
+                    const barPercent = 100 - (data.minutes_to_midnight / 60 * 100);
+                    barEl.style.width = barPercent + '%';
+
+                    // Show top contributing factors with daily probabilities
+                    if (data.markets && data.markets.length > 0) {
+                        const topFactors = data.markets.slice(0, 3).map(m => {
+                            const dailyProb = m.daily_prob || 0;
+                            let probStr;
+                            if (dailyProb < 0.0001) {
+                                probStr = dailyProb.toExponential(1);
+                            } else {
+                                probStr = dailyProb.toFixed(4) + '%';
+                            }
+                            return `[${m.category.toUpperCase()}] ${probStr}`;
+                        }).join(' • ');
+                        factorsEl.textContent = topFactors;
+                    } else {
+                        factorsEl.textContent = data.message || 'No data available';
+                    }
+                })
+                .catch(err => {
+                    console.error('Doomsday error:', err);
+                    document.getElementById('doomsday-time').textContent = '--:--';
+                    document.getElementById('doomsday-factors').textContent = 'API Error';
+                });
+        }
+
+        // Load doomsday initially and refresh every 60 seconds
+        loadDoomsday();
+        setInterval(loadDoomsday, 60000);
+
+        // Trigger doomsday cache refresh in background
+        fetch('/markets/doomsday/refresh', { method: 'POST' });
+        setInterval(() => {
+            fetch('/markets/doomsday/refresh', { method: 'POST' });
+        }, 300000); // Refresh cache every 5 minutes
 
         // Reload entire page every 5 minutes (for weather updates)
         setTimeout(() => location.reload(), 300000);
