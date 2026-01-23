@@ -17,10 +17,298 @@
             box-sizing: border-box;
         }
 
+        /* Theme CSS Variables */
+        :root {
+            --primary-color: #0f0;
+            --primary-hover: #0ff;
+            --bg-main: #000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111;
+            --border-color: #0f0;
+            --text-color: #0f0;
+            --text-muted: #666;
+            --status-color: #0f0;
+            --header-border: #0f0;
+            --section-border: #0f0;
+            --section-text: #0f0;
+            --event-border: #0f0;
+            --event-text: #0f0;
+        }
+
+        /* Theme: Green (Default) */
+        body.theme-green {
+            --primary-color: #0f0;
+            --primary-hover: #0ff;
+            --bg-main: #000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111;
+            --border-color: #0f0;
+            --text-color: #0f0;
+            --text-muted: #666;
+            --status-color: #0f0;
+            --header-border: #0f0;
+            --section-border: #0f0;
+            --section-text: #0f0;
+            --event-border: #0f0;
+            --event-text: #0f0;
+        }
+
+        /* Theme: Blue/Cyan */
+        body.theme-blue {
+            --primary-color: #0af;
+            --primary-hover: #0ff;
+            --bg-main: #000;
+            --bg-secondary: #0a0a0f;
+            --bg-tertiary: #111;
+            --border-color: #0af;
+            --text-color: #0af;
+            --text-muted: #555;
+            --status-color: #0af;
+            --header-border: #0af;
+            --section-border: #0af;
+            --section-text: #0af;
+            --event-border: #0af;
+            --event-text: #0af;
+        }
+
+        /* Theme: Amber/Orange */
+        body.theme-amber {
+            --primary-color: #fa0;
+            --primary-hover: #ff0;
+            --bg-main: #000;
+            --bg-secondary: #0f0a0a;
+            --bg-tertiary: #111;
+            --border-color: #fa0;
+            --text-color: #fa0;
+            --text-muted: #666;
+            --status-color: #fa0;
+            --header-border: #fa0;
+            --section-border: #fa0;
+            --section-text: #fa0;
+            --event-border: #fa0;
+            --event-text: #fa0;
+        }
+
+        /* Theme: Red */
+        body.theme-red {
+            --primary-color: #f33;
+            --primary-hover: #f55;
+            --bg-main: #000;
+            --bg-secondary: #0f0a0a;
+            --bg-tertiary: #111;
+            --border-color: #f33;
+            --text-color: #f33;
+            --text-muted: #666;
+            --status-color: #f33;
+            --header-border: #f33;
+            --section-border: #f33;
+            --section-text: #f33;
+            --event-border: #f33;
+            --event-text: #f33;
+        }
+
+        /* Theme: Purple/Magenta */
+        body.theme-purple {
+            --primary-color: #f0f;
+            --primary-hover: #f5f;
+            --bg-main: #000;
+            --bg-secondary: #0f0a0f;
+            --bg-tertiary: #111;
+            --border-color: #f0f;
+            --text-color: #f0f;
+            --text-muted: #666;
+            --status-color: #f0f;
+            --header-border: #f0f;
+            --section-border: #f0f;
+            --section-text: #f0f;
+            --event-border: #f0f;
+            --event-text: #f0f;
+        }
+
+        /* Theme: Cyan (Wider Blue Range) */
+        body.theme-cyan {
+            --primary-color: #0ff;
+            --primary-hover: #aff;
+            --bg-main: #000;
+            --bg-secondary: #0a0f0f;
+            --bg-tertiary: #111;
+            --border-color: #0ff;
+            --text-color: #0ff;
+            --text-muted: #4aa;
+            --status-color: #0ff;
+            --header-border: #0ff;
+            --section-border: #0ff;
+            --section-text: #0ff;
+            --event-border: #0ff;
+            --event-text: #0ff;
+        }
+
+        /* Theme: Teal (Blue-Green Range) */
+        body.theme-teal {
+            --primary-color: #0fa;
+            --primary-hover: #5ff;
+            --bg-main: #000;
+            --bg-secondary: #0a0f0a;
+            --bg-tertiary: #111;
+            --border-color: #0fa;
+            --text-color: #0fa;
+            --text-muted: #4aa;
+            --status-color: #0fa;
+            --header-border: #0fa;
+            --section-border: #0fa;
+            --section-text: #0fa;
+            --event-border: #0fa;
+            --event-text: #0fa;
+        }
+
+        /* Theme: Lime (Bright Green Range) */
+        body.theme-lime {
+            --primary-color: #af0;
+            --primary-hover: #ff0;
+            --bg-main: #000;
+            --bg-secondary: #0f0a00;
+            --bg-tertiary: #111;
+            --border-color: #af0;
+            --text-color: #af0;
+            --text-muted: #6a6;
+            --status-color: #af0;
+            --header-border: #af0;
+            --section-border: #af0;
+            --section-text: #af0;
+            --event-border: #af0;
+            --event-text: #af0;
+        }
+
+        /* Theme: Pink (Wider Red Range) */
+        body.theme-pink {
+            --primary-color: #f5a;
+            --primary-hover: #f8c;
+            --bg-main: #000;
+            --bg-secondary: #0f0a0a;
+            --bg-tertiary: #111;
+            --border-color: #f5a;
+            --text-color: #f5a;
+            --text-muted: #a66;
+            --status-color: #f5a;
+            --header-border: #f5a;
+            --section-border: #f5a;
+            --section-text: #f5a;
+            --event-border: #f5a;
+            --event-text: #f5a;
+        }
+
+        /* Theme: Indigo (Deep Blue-Purple Range) */
+        body.theme-indigo {
+            --primary-color: #66f;
+            --primary-hover: #88f;
+            --bg-main: #000;
+            --bg-secondary: #0a0a0f;
+            --bg-tertiary: #111;
+            --border-color: #66f;
+            --text-color: #66f;
+            --text-muted: #559;
+            --status-color: #66f;
+            --header-border: #66f;
+            --section-border: #66f;
+            --section-text: #66f;
+            --event-border: #66f;
+            --event-text: #66f;
+        }
+
+        /* Theme: Vaporwave (Pink + Cyan Combination) */
+        body.theme-vaporwave {
+            --primary-color: #ff00ff;
+            --primary-hover: #00ffff;
+            --bg-main: #000;
+            --bg-secondary: #0f0a0f;
+            --bg-tertiary: #1a0a1a;
+            --border-color: #ff00ff;
+            --text-color: #00ffff;
+            --text-muted: #a55;
+            --status-color: #00ffff;
+            --header-border: #ff00ff;
+            --section-border: #00ffff;
+            --section-text: #ff00ff;
+            --event-border: #ff00ff;
+            --event-text: #00ffff;
+        }
+
+        /* Theme: Sunset (Orange + Pink Combination) */
+        body.theme-sunset {
+            --primary-color: #ff6b35;
+            --primary-hover: #ff8c42;
+            --bg-main: #000;
+            --bg-secondary: #0f0a0a;
+            --bg-tertiary: #1a0a0a;
+            --border-color: #ff6b35;
+            --text-color: #ff8c42;
+            --text-muted: #a66;
+            --status-color: #ff8c42;
+            --header-border: #ff6b35;
+            --section-border: #ff8c42;
+            --section-text: #ff6b35;
+            --event-border: #ff8c42;
+            --event-text: #ff6b35;
+        }
+
+        /* Theme: Ocean (Blue + Teal Combination) */
+        body.theme-ocean {
+            --primary-color: #00d4ff;
+            --primary-hover: #00ffd4;
+            --bg-main: #000;
+            --bg-secondary: #0a0f0f;
+            --bg-tertiary: #0a1a1a;
+            --border-color: #00d4ff;
+            --text-color: #00ffd4;
+            --text-muted: #4aa;
+            --status-color: #00ffd4;
+            --header-border: #00d4ff;
+            --section-border: #00ffd4;
+            --section-text: #00d4ff;
+            --event-border: #00ffd4;
+            --event-text: #00d4ff;
+        }
+
+        /* Theme: Forest (Green + Teal Combination) */
+        body.theme-forest {
+            --primary-color: #00ff88;
+            --primary-hover: #88ff00;
+            --bg-main: #000;
+            --bg-secondary: #0a0f0a;
+            --bg-tertiary: #0a1a0a;
+            --border-color: #00ff88;
+            --text-color: #88ff00;
+            --text-muted: #4a6;
+            --status-color: #88ff00;
+            --header-border: #00ff88;
+            --section-border: #88ff00;
+            --section-text: #00ff88;
+            --event-border: #88ff00;
+            --event-text: #00ff88;
+        }
+
+        /* Theme: Neon (Multi-color Combination) */
+        body.theme-neon {
+            --primary-color: #00ff00;
+            --primary-hover: #ff00ff;
+            --bg-main: #000;
+            --bg-secondary: #0a0a0a;
+            --bg-tertiary: #111;
+            --border-color: #00ff00;
+            --text-color: #00ffff;
+            --text-muted: #666;
+            --status-color: #00ffff;
+            --header-border: #00ff00;
+            --section-border: #ff00ff;
+            --section-text: #00ffff;
+            --event-border: #00ff00;
+            --event-text: #ff00ff;
+        }
+
         body {
             margin:0;
-            background:#000;
-            color:#0f0;
+            background:var(--bg-main);
+            color:var(--text-color);
             font-family:'Departure Mono', 'Courier New', monospace;
             font-size:16px;
             overflow:hidden;
@@ -31,8 +319,8 @@
         
         /* Top header bar */
         .top-bar {
-            background:#000;
-            border:2px solid #0f0;
+            background:var(--bg-main);
+            border:2px solid var(--header-border);
             border-bottom-width:3px;
             padding:15px 20px;
             display:flex;
@@ -48,12 +336,12 @@
         
         .top-bar-left::before {
             content:'◄◄◄ ';
-            color:#0f0;
+            color:var(--primary-color);
         }
         
         .top-bar-left::after {
             content:' ►►►';
-            color:#0f0;
+            color:var(--primary-color);
         }
         
         .top-bar-center {
@@ -79,8 +367,19 @@
         .left-column {
             display:flex;
             flex-direction:column;
-            border-right:2px solid #0f0;
+            border-right:2px solid var(--border-color);
             overflow:hidden;
+        }
+
+        .events {
+            overflow-y:auto;
+            display:flex;
+            flex-direction:column;
+        }
+
+        /* Elements that are moved to right side */
+        .element-on-right {
+            order:999;
         }
         
         /* Weather panel */
@@ -88,9 +387,10 @@
             padding:20px;
             display:flex;
             flex-direction:column;
-            background:#0a0a0a;
-            overflow-y:auto;
-            flex:0 0 auto;
+            background:var(--bg-secondary);
+            overflow:hidden;
+            flex:0 1 auto;
+            min-height:0;
         }
         
         .section-header {
@@ -99,24 +399,25 @@
             font-size:18px;
             font-weight:bold;
             letter-spacing:2px;
-            border:2px solid #0f0;
-            background:#000;
+            border:2px solid var(--section-border);
+            background:var(--bg-main);
             text-align:center;
+            color:var(--section-text);
         }
         
         .section-header::before {
             content:'━━━ ';
-            color:#0f0;
+            color:var(--section-text);
         }
         
         .section-header::after {
             content:' ━━━';
-            color:#0f0;
+            color:var(--section-text);
         }
         
         .data-box {
-            background:#111;
-            border:2px solid #0f0;
+            background:var(--bg-tertiary);
+            border:2px solid var(--border-color);
             padding:15px;
             margin-bottom:15px;
         }
@@ -125,13 +426,13 @@
             font-size:15px;
             line-height:1.6;
             white-space:pre;
-            color:#0f0;
+            color:var(--text-color);
         }
         
         .weather-now {
             font-size:24px;
             font-weight:bold;
-            color:#0f0;
+            color:var(--text-color);
         }
         
         .sun-times { 
@@ -158,9 +459,10 @@
         /* Doomsday clock panel */
         .doomsday {
             padding:15px;
-            background:#0a0a0a;
-            border-top:2px solid #0f0;
+            background:var(--bg-secondary);
+            border-top:2px solid var(--border-color);
             flex:0 0 auto;
+            min-height:fit-content;
         }
 
         .doomsday-clock {
@@ -175,24 +477,20 @@
             font-size:48px;
             font-weight:bold;
             color:#f33;
-            text-shadow:0 0 10px #f33;
             font-family:'Departure Mono', 'Courier New', monospace;
             letter-spacing:2px;
         }
 
         .clock-display.safe {
-            color:#0f0;
-            text-shadow:0 0 10px #0f0;
+            color:var(--primary-color);
         }
 
         .clock-display.warning {
             color:#fa0;
-            text-shadow:0 0 10px #fa0;
         }
 
         .clock-display.danger {
             color:#f33;
-            text-shadow:0 0 10px #f33;
         }
 
         .clock-info {
@@ -203,7 +501,7 @@
 
         .clock-label {
             font-size:11px;
-            color:#666;
+            color:var(--text-muted);
             letter-spacing:1px;
         }
 
@@ -214,8 +512,8 @@
 
         .minutes-bar {
             height:8px;
-            background:#222;
-            border:1px solid #333;
+            background:var(--bg-tertiary);
+            border:1px solid var(--text-muted);
             margin-top:8px;
             position:relative;
             overflow:hidden;
@@ -228,7 +526,7 @@
 
         .doomsday-markets {
             font-size:9px;
-            color:#555;
+            color:var(--text-muted);
             margin-top:8px;
             max-height:60px;
             overflow:hidden;
@@ -239,9 +537,10 @@
         .markets {
             padding:15px;
             overflow-y:auto;
-            background:#0a0a0a;
-            flex:1;
-            border-top:2px solid #0f0;
+            background:var(--bg-secondary);
+            flex:1 1 auto;
+            min-height:0;
+            border-top:2px solid var(--border-color);
             display:flex;
             flex-direction:column;
         }
@@ -249,8 +548,8 @@
         .markets-chart-container {
             flex:1;
             min-height:100px;
-            border: 0px solid #0f0;
-            background:#000;
+            border: 0px solid var(--border-color);
+            background:var(--bg-main);
             margin-bottom:10px;
             padding:10px;
             font-family:'Departure Mono', 'Courier New', monospace;
@@ -280,7 +579,7 @@
 
         .chart-label {
             font-size:10px;
-            color:#666;
+            color:var(--text-muted);
             margin-top:2px;
             white-space:nowrap;
             overflow:hidden;
@@ -294,11 +593,11 @@
         }
 
         .chart-axis {
-            color:#444;
+            color:var(--text-muted);
             font-size:10px;
             display:flex;
             justify-content:space-between;
-            border-top:1px solid #333;
+            border-top:1px solid var(--text-muted);
             padding-top:4px;
             margin-top:4px;
         }
@@ -308,15 +607,15 @@
         .events {
             padding:20px;
             overflow-y:auto;
-            background:#0a0a0a;
+            background:var(--bg-secondary);
         }
         
         #date-header { 
             margin:0 0 20px 0;
             padding:15px;
             font-size:24px;
-            border:2px solid #0f0;
-            background:#000;
+            border:2px solid var(--border-color);
+            background:var(--bg-main);
             text-align:center;
             letter-spacing:2px;
         }
@@ -329,26 +628,26 @@
         .event { 
             padding:15px 20px;
             margin:12px 0;
-            background:#111;
-            border:2px solid #0f0;
+            background:var(--bg-tertiary);
+            border:2px solid var(--event-border);
             position:relative;
             transition:all 0.2s;
         }
         
         .event:hover {
-            background:#1a1a1a;
-            border-color:#0ff;
+            background:var(--bg-secondary);
+            border-color:var(--primary-hover);
         }
         
         .event-date { 
-            color:#0f0; 
+            color:var(--event-text); 
             font-weight:bold;
             font-size:16px;
             letter-spacing:1px;
         }
         
         .event-title {
-            color:#0f0;
+            color:var(--event-text);
             font-size:19px;
             margin-top:8px;
             letter-spacing:0.5px;
@@ -356,8 +655,8 @@
         
         /* Status bar */
         .status-bar {
-            background:#000;
-            border-top:2px solid #0f0;
+            background:var(--bg-main);
+            border-top:2px solid var(--border-color);
             padding:8px 20px;
             display:flex;
             justify-content:space-between;
@@ -374,7 +673,7 @@
             display:inline-block;
             width:8px;
             height:8px;
-            background:#0f0;
+            background:var(--status-color);
             animation:pulse 2s infinite;
         }
         
@@ -389,18 +688,257 @@
         }
         
         ::-webkit-scrollbar-track {
-            background:#000;
-            border-left:2px solid #0f0;
+            background:var(--bg-main);
+            border-left:2px solid var(--border-color);
         }
         
         ::-webkit-scrollbar-thumb {
-            background:#0f0;
-            border:2px solid #000;
+            background:var(--primary-color);
+            border:2px solid var(--bg-main);
         }
         
         ::-webkit-scrollbar-thumb:hover {
-            background:#0ff;
+            background:var(--primary-hover);
         }
+        
+        /* Context menu */
+        .context-menu {
+            position:fixed;
+            background:var(--bg-main);
+            border:2px solid var(--border-color);
+            padding:8px 0;
+            min-width:200px;
+            z-index:10000;
+            display:none;
+        }
+        
+        .context-menu-item {
+            padding:10px 20px;
+            color:var(--text-color);
+            cursor:pointer;
+            font-size:14px;
+            border-bottom:1px solid var(--bg-secondary);
+            transition:background 0.2s;
+        }
+        
+        .context-menu-item:hover {
+            background:var(--bg-secondary);
+            color:var(--primary-hover);
+        }
+        
+        .context-menu-item:last-child {
+            border-bottom:none;
+        }
+        
+        /* Settings panel */
+        .settings-panel {
+            position:fixed;
+            right:-350px;
+            top:0;
+            width:350px;
+            height:100vh;
+            background:var(--bg-main);
+            border-left:2px solid var(--border-color);
+            z-index:9999;
+            transition:right 0.3s ease;
+            overflow-y:auto;
+        }
+        
+        .settings-panel.open {
+            right:0;
+        }
+        
+        .settings-header {
+            padding:20px;
+            border-bottom:2px solid var(--border-color);
+            background:var(--bg-secondary);
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+        
+        .settings-title {
+            font-size:20px;
+            font-weight:bold;
+            color:var(--text-color);
+            letter-spacing:2px;
+        }
+        
+        .settings-close {
+            background:none;
+            border:2px solid var(--border-color);
+            color:var(--text-color);
+            padding:5px 15px;
+            cursor:pointer;
+            font-family:'Departure Mono', 'Courier New', monospace;
+            font-size:14px;
+            transition:all 0.2s;
+        }
+        
+        .settings-close:hover {
+            background:var(--primary-color);
+            color:var(--bg-main);
+        }
+        
+        .settings-content {
+            padding:20px;
+        }
+        
+        .settings-section {
+            margin-bottom:30px;
+        }
+        
+        .settings-section-title {
+            font-size:16px;
+            font-weight:bold;
+            color:var(--text-color);
+            margin-bottom:15px;
+            letter-spacing:1px;
+            border-bottom:1px solid var(--border-color);
+            padding-bottom:8px;
+        }
+        
+        .settings-toggle {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:12px;
+            background:var(--bg-secondary);
+            border:2px solid var(--border-color);
+            margin-bottom:10px;
+            cursor:pointer;
+            transition:all 0.2s;
+        }
+        
+        .settings-toggle:hover {
+            background:var(--bg-tertiary);
+            border-color:var(--primary-hover);
+        }
+        
+        .settings-toggle-label {
+            color:var(--text-color);
+            font-size:14px;
+        }
+        
+        .settings-visibility-button {
+            width:40px;
+            height:40px;
+            background:var(--bg-main);
+            border:2px solid var(--border-color);
+            cursor:pointer;
+            transition:all 0.2s;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:bold;
+            color:var(--text-color);
+        }
+        
+        .settings-visibility-button.active {
+            background:var(--primary-color);
+            color:var(--bg-main);
+        }
+        
+        .settings-visibility-button:hover {
+            border-color:var(--primary-hover);
+        }
+        
+        .settings-side-switch {
+            width:60px;
+            height:30px;
+            background:var(--bg-tertiary);
+            border:2px solid var(--border-color);
+            position:relative;
+            cursor:pointer;
+            transition:background 0.2s;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:bold;
+            font-size:14px;
+            color:var(--text-color);
+        }
+        
+        .settings-side-switch.left {
+            background:var(--bg-tertiary);
+        }
+        
+        .settings-side-switch.right {
+            background:var(--primary-color);
+            color:var(--bg-main);
+        }
+        
+        .settings-side-switch::before {
+            content:'L';
+            position:absolute;
+            left:8px;
+            transition:opacity 0.2s;
+        }
+        
+        .settings-side-switch::after {
+            content:'R';
+            position:absolute;
+            right:8px;
+            transition:opacity 0.2s;
+        }
+        
+        .settings-side-switch.left::before {
+            opacity:1;
+        }
+        
+        .settings-side-switch.left::after {
+            opacity:0.3;
+        }
+        
+        .settings-side-switch.right::before {
+            opacity:0.3;
+        }
+        
+        .settings-side-switch.right::after {
+            opacity:1;
+        }
+        
+        .settings-theme-option {
+            padding:12px 16px;
+            background:var(--bg-secondary);
+            border:2px solid var(--border-color);
+            margin-bottom:10px;
+            cursor:pointer;
+            transition:all 0.2s;
+            color:var(--text-color);
+            font-size:14px;
+            text-align:center;
+            font-weight:bold;
+            letter-spacing:1px;
+            position:relative;
+            min-height:44px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+        
+        .settings-theme-option:hover {
+            background:var(--bg-tertiary);
+            border-color:var(--primary-hover);
+            transform:translateY(-1px);
+        }
+        
+        .settings-theme-option:active {
+            transform:translateY(0);
+        }
+        
+        .settings-theme-option.active {
+            background:var(--primary-color);
+            color:var(--bg-main);
+            border-color:var(--primary-color);
+            box-shadow:inset 0 0 0 2px var(--bg-main);
+        }
+        
+        .settings-theme-option.active:hover {
+            background:var(--primary-hover);
+            border-color:var(--primary-hover);
+        }
+        
     </style>
 </head>
 <body>
@@ -414,13 +952,13 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="left-column">
-            <div class="weather">
+            <div class="weather" id="weather-section">
                 <div class="section-header">SF WEATHER</div>
                 <div class="data-box">
                     <div id="weather-data">Loading...</div>
                 </div>
             </div>
-            <div class="doomsday">
+            <div class="doomsday" id="doomsday-section">
                 <div class="section-header">DOOMSDAY CLOCK</div>
                 <div class="doomsday-clock">
                     <div class="clock-display" id="doomsday-time">--:--</div>
@@ -436,7 +974,7 @@
                 </div>
                 <div class="doomsday-markets" id="doomsday-factors"></div>
             </div>
-            <div class="markets">
+            <div class="markets" id="markets-section">
                 <div class="section-header">PREDICTION MARKETS</div>
                 <div class="markets-chart-container">
                     <div id="markets-chart"></div>
@@ -473,7 +1011,363 @@
         </div>
     </div>
     
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu">
+        <div class="context-menu-item" id="menu-toggle-element" style="display:none;"></div>
+        <div class="context-menu-item" id="menu-move-left" style="display:none;">Move to Left</div>
+        <div class="context-menu-item" id="menu-move-right" style="display:none;">Move to Right</div>
+        <div class="context-menu-item" id="menu-open-settings">Show Menu</div>
+    </div>
+    
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="settings-header">
+            <div class="settings-title">SETTINGS</div>
+            <button class="settings-close" id="settings-close">CLOSE</button>
+        </div>
+        <div class="settings-content">
+            <div class="settings-section">
+                <div class="settings-section-title">VISIBILITY</div>
+                <div class="settings-toggle" id="settings-toggle-markets">
+                    <div class="settings-toggle-label">Prediction Markets</div>
+                    <div class="settings-visibility-button" id="button-markets"></div>
+                </div>
+                <div class="settings-toggle" id="settings-toggle-doomsday">
+                    <div class="settings-toggle-label">Doomsday Clock</div>
+                    <div class="settings-visibility-button" id="button-doomsday"></div>
+                </div>
+                <div class="settings-toggle" id="settings-toggle-weather">
+                    <div class="settings-toggle-label">Weather</div>
+                    <div class="settings-visibility-button" id="button-weather"></div>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="settings-section-title">SIDE POSITION</div>
+                <div class="settings-toggle" id="settings-side-markets">
+                    <div class="settings-toggle-label">Prediction Markets</div>
+                    <div class="settings-side-switch left" id="side-markets"></div>
+                </div>
+                <div class="settings-toggle" id="settings-side-doomsday">
+                    <div class="settings-toggle-label">Doomsday Clock</div>
+                    <div class="settings-side-switch left" id="side-doomsday"></div>
+                </div>
+                <div class="settings-toggle" id="settings-side-weather">
+                    <div class="settings-toggle-label">Weather</div>
+                    <div class="settings-side-switch left" id="side-weather"></div>
+                </div>
+            </div>
+            <div class="settings-section">
+                <div class="settings-section-title">THEME</div>
+                <div class="settings-theme-option" data-theme="green">GREEN</div>
+                <div class="settings-theme-option" data-theme="blue">BLUE</div>
+                <div class="settings-theme-option" data-theme="cyan">CYAN</div>
+                <div class="settings-theme-option" data-theme="teal">TEAL</div>
+                <div class="settings-theme-option" data-theme="lime">LIME</div>
+                <div class="settings-theme-option" data-theme="amber">AMBER</div>
+                <div class="settings-theme-option" data-theme="red">RED</div>
+                <div class="settings-theme-option" data-theme="pink">PINK</div>
+                <div class="settings-theme-option" data-theme="purple">PURPLE</div>
+                <div class="settings-theme-option" data-theme="indigo">INDIGO</div>
+                <div class="settings-theme-option" data-theme="vaporwave">VAPORWAVE</div>
+                <div class="settings-theme-option" data-theme="sunset">SUNSET</div>
+                <div class="settings-theme-option" data-theme="ocean">OCEAN</div>
+                <div class="settings-theme-option" data-theme="forest">FOREST</div>
+                <div class="settings-theme-option" data-theme="neon">NEON</div>
+            </div>
+        </div>
+    </div>
+    
     <script>
+        // Visibility management
+        const visibilityState = {
+            markets: localStorage.getItem('visibility-markets') !== 'false',
+            doomsday: localStorage.getItem('visibility-doomsday') !== 'false',
+            weather: localStorage.getItem('visibility-weather') !== 'false'
+        };
+        
+        // Load saved visibility state
+        function loadVisibilityState() {
+            if (!visibilityState.markets) {
+                document.getElementById('markets-section').style.display = 'none';
+            }
+            if (!visibilityState.doomsday) {
+                document.getElementById('doomsday-section').style.display = 'none';
+            }
+            if (!visibilityState.weather) {
+                document.getElementById('weather-section').style.display = 'none';
+            }
+            updateVisibilityButtons();
+        }
+        
+        // Update visibility button visual states
+        function updateVisibilityButtons() {
+            document.getElementById('button-markets').classList.toggle('active', visibilityState.markets);
+            document.getElementById('button-doomsday').classList.toggle('active', visibilityState.doomsday);
+            document.getElementById('button-weather').classList.toggle('active', visibilityState.weather);
+        }
+        
+        // Toggle visibility functions
+        function toggleMarkets() {
+            visibilityState.markets = !visibilityState.markets;
+            document.getElementById('markets-section').style.display = visibilityState.markets ? '' : 'none';
+            localStorage.setItem('visibility-markets', visibilityState.markets);
+            updateVisibilityButtons();
+        }
+        
+        function toggleDoomsday() {
+            visibilityState.doomsday = !visibilityState.doomsday;
+            document.getElementById('doomsday-section').style.display = visibilityState.doomsday ? '' : 'none';
+            localStorage.setItem('visibility-doomsday', visibilityState.doomsday);
+            updateVisibilityButtons();
+        }
+        
+        function toggleWeather() {
+            visibilityState.weather = !visibilityState.weather;
+            document.getElementById('weather-section').style.display = visibilityState.weather ? '' : 'none';
+            localStorage.setItem('visibility-weather', visibilityState.weather);
+            updateVisibilityButtons();
+        }
+        
+        // Context menu handling
+        const contextMenu = document.getElementById('context-menu');
+        const menuToggleElement = document.getElementById('menu-toggle-element');
+        let contextMenuVisible = false;
+        let currentToggleFunction = null;
+        let currentSection = null;
+        
+        // Side position management
+        const sideState = {
+            markets: localStorage.getItem('side-markets') || 'left',
+            doomsday: localStorage.getItem('side-doomsday') || 'left',
+            weather: localStorage.getItem('side-weather') || 'left'
+        };
+        
+        function moveElement(type, side) {
+            const element = document.getElementById(`${type}-section`);
+            if (!element) return;
+            
+            const leftColumn = document.querySelector('.left-column');
+            const eventsContainer = document.querySelector('.events');
+            
+            sideState[type] = side;
+            localStorage.setItem(`side-${type}`, side);
+            
+            // Remove from both containers first
+            if (element.parentElement) {
+                element.parentElement.removeChild(element);
+            }
+            
+            // Add to appropriate container
+            if (side === 'left') {
+                leftColumn.appendChild(element);
+            } else {
+                eventsContainer.insertBefore(element, eventsContainer.firstChild);
+            }
+            
+            updateSideSwitches();
+        }
+        
+        function updateSideSwitches() {
+            ['markets', 'doomsday', 'weather'].forEach(type => {
+                const switchEl = document.getElementById(`side-${type}`);
+                if (switchEl) {
+                    switchEl.classList.remove('left', 'right');
+                    switchEl.classList.add(sideState[type]);
+                }
+            });
+        }
+        
+        function loadSideState() {
+            ['markets', 'doomsday', 'weather'].forEach(type => {
+                moveElement(type, sideState[type]);
+            });
+            updateSideSwitches();
+        }
+        
+        // Helper function to find which section an element belongs to
+        function findSection(element) {
+            let current = element;
+            while (current && current !== document.body) {
+                if (current.id === 'markets-section') {
+                    return { type: 'markets', name: 'Prediction Markets', toggle: toggleMarkets };
+                }
+                if (current.id === 'doomsday-section') {
+                    return { type: 'doomsday', name: 'Doomsday Clock', toggle: toggleDoomsday };
+                }
+                if (current.id === 'weather-section') {
+                    return { type: 'weather', name: 'Weather', toggle: toggleWeather };
+                }
+                current = current.parentElement;
+            }
+            return null;
+        }
+        
+        document.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            
+            // Find which section was clicked
+            const section = findSection(e.target);
+            
+            const menuMoveLeft = document.getElementById('menu-move-left');
+            const menuMoveRight = document.getElementById('menu-move-right');
+            
+            if (section) {
+                // Show toggle option for the clicked section
+                const isVisible = visibilityState[section.type];
+                menuToggleElement.textContent = isVisible ? `Hide ${section.name}` : `Show ${section.name}`;
+                menuToggleElement.style.display = 'block';
+                currentToggleFunction = section.toggle;
+                
+                // Show move options
+                const currentSide = sideState[section.type];
+                menuMoveLeft.style.display = currentSide === 'right' ? 'block' : 'none';
+                menuMoveRight.style.display = currentSide === 'left' ? 'block' : 'none';
+                currentSection = section;
+            } else {
+                // Hide toggle option if clicking outside sections
+                menuToggleElement.style.display = 'none';
+                menuMoveLeft.style.display = 'none';
+                menuMoveRight.style.display = 'none';
+                currentToggleFunction = null;
+                currentSection = null;
+            }
+            
+            contextMenu.style.display = 'block';
+            
+            // Position menu, ensuring it doesn't go off-screen
+            let left = e.pageX;
+            let top = e.pageY;
+            
+            // Check if menu would go off right edge
+            if (left + contextMenu.offsetWidth > window.innerWidth) {
+                left = window.innerWidth - contextMenu.offsetWidth - 10;
+            }
+            
+            // Check if menu would go off bottom edge
+            if (top + contextMenu.offsetHeight > window.innerHeight) {
+                top = window.innerHeight - contextMenu.offsetHeight - 10;
+            }
+            
+            contextMenu.style.left = left + 'px';
+            contextMenu.style.top = top + 'px';
+            contextMenuVisible = true;
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (contextMenuVisible && !contextMenu.contains(e.target)) {
+                contextMenu.style.display = 'none';
+                contextMenuVisible = false;
+            }
+        });
+        
+        // Context menu item handlers
+        menuToggleElement.addEventListener('click', () => {
+            if (currentToggleFunction) {
+                currentToggleFunction();
+            }
+            contextMenu.style.display = 'none';
+            contextMenuVisible = false;
+        });
+        
+        document.getElementById('menu-move-left').addEventListener('click', () => {
+            if (currentSection) {
+                moveElement(currentSection.type, 'left');
+            }
+            contextMenu.style.display = 'none';
+            contextMenuVisible = false;
+        });
+        
+        document.getElementById('menu-move-right').addEventListener('click', () => {
+            if (currentSection) {
+                moveElement(currentSection.type, 'right');
+            }
+            contextMenu.style.display = 'none';
+            contextMenuVisible = false;
+        });
+        
+        document.getElementById('menu-open-settings').addEventListener('click', () => {
+            document.getElementById('settings-panel').classList.add('open');
+            contextMenu.style.display = 'none';
+            contextMenuVisible = false;
+        });
+        
+        // Settings panel handlers
+        document.getElementById('settings-close').addEventListener('click', () => {
+            document.getElementById('settings-panel').classList.remove('open');
+        });
+        
+        document.getElementById('settings-toggle-markets').addEventListener('click', toggleMarkets);
+        document.getElementById('settings-toggle-doomsday').addEventListener('click', toggleDoomsday);
+        document.getElementById('settings-toggle-weather').addEventListener('click', toggleWeather);
+        
+        // Side position toggles in settings
+        document.getElementById('settings-side-markets').addEventListener('click', () => {
+            const newSide = sideState.markets === 'left' ? 'right' : 'left';
+            moveElement('markets', newSide);
+        });
+        
+        document.getElementById('settings-side-doomsday').addEventListener('click', () => {
+            const newSide = sideState.doomsday === 'left' ? 'right' : 'left';
+            moveElement('doomsday', newSide);
+        });
+        
+        document.getElementById('settings-side-weather').addEventListener('click', () => {
+            const newSide = sideState.weather === 'left' ? 'right' : 'left';
+            moveElement('weather', newSide);
+        });
+        
+        // Load side state on page load
+        loadSideState();
+        
+        // Theme management
+        const themes = ['green', 'blue', 'cyan', 'teal', 'lime', 'amber', 'red', 'pink', 'purple', 'indigo', 'vaporwave', 'sunset', 'ocean', 'forest', 'neon'];
+        let currentTheme = localStorage.getItem('theme') || 'green';
+        
+        function setTheme(theme) {
+            // Remove all theme classes
+            themes.forEach(t => document.body.classList.remove(`theme-${t}`));
+            // Add selected theme class
+            document.body.classList.add(`theme-${theme}`);
+            localStorage.setItem('theme', theme);
+            currentTheme = theme;
+            updateThemeButtons();
+        }
+        
+        function updateThemeButtons() {
+            const themeButtons = document.querySelectorAll('.settings-theme-option');
+            themeButtons.forEach(btn => {
+                const theme = btn.getAttribute('data-theme');
+                if (theme === currentTheme) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+        }
+        
+        // Theme selection handlers
+        document.querySelectorAll('.settings-theme-option').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const theme = btn.getAttribute('data-theme');
+                setTheme(theme);
+            });
+        });
+        
+        // Load theme on page load
+        setTheme(currentTheme);
+        
+        // Close menus with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                contextMenu.style.display = 'none';
+                contextMenuVisible = false;
+                document.getElementById('settings-panel').classList.remove('open');
+            }
+        });
+        
+        // Load visibility state on page load
+        loadVisibilityState();
+        
         // Update time every second in PST
         function updateTime() {
             const now = new Date();
@@ -489,6 +1383,100 @@
         updateTime();
         setInterval(updateTime, 1000);
 
+        // Store weather data globally for re-rendering on resize
+        let weatherDataCache = null;
+
+        // Function to render weather data
+        function renderWeatherData(meteoData) {
+            if (!meteoData || !meteoData.hourly || !meteoData.hourly.temperature_2m) {
+                return;
+            }
+            
+            // Get current temperature from first hour
+            const currentTemp = Math.round(meteoData.hourly.temperature_2m[0]);
+            
+            // Determine temperature color class
+            let tempClass = 'temp-cool';
+            if (currentTemp <= 50) {
+                tempClass = 'temp-cold';
+            } else if (currentTemp <= 65) {
+                tempClass = 'temp-cool';
+            } else if (currentTemp <= 80) {
+                tempClass = 'temp-warm';
+            } else {
+                tempClass = 'temp-hot';
+            }
+            
+            let html = `<span class="weather-now">► NOW: <span class="${tempClass}">${currentTemp}°F</span></span>\n`;
+            
+            // Add sunrise/sunset with bars
+            if (meteoData.daily && meteoData.daily.sunrise && meteoData.daily.sunset) {
+                const sunrise = new Date(meteoData.daily.sunrise[0]).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true}).toLowerCase();
+                const sunset = new Date(meteoData.daily.sunset[0]).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true}).toLowerCase();
+                
+                html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                html += `<span class="sun-times">☀ ${sunrise} → ${sunset}</span>\n`;
+                html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            } else {
+                html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            }
+            
+            // Get hourly data
+            const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+            const temps = meteoData.hourly.temperature_2m;
+            const rain = meteoData.hourly.precipitation_probability || [];
+            const times = meteoData.hourly.time;
+            
+            // Start from next 3-hour mark
+            const now = new Date();
+            const currentHour = now.getHours();
+            const nextThreeHour = Math.ceil(currentHour / 3) * 3;
+            
+            let startIdx = 0;
+            for(let i = 0; i < times.length; i++) {
+                const timeDate = new Date(times[i]);
+                if(timeDate.getHours() === nextThreeHour % 24 && timeDate > now) {
+                    startIdx = i;
+                    break;
+                }
+            }
+            
+            // Calculate how many lines to show based on available space
+            // Account for: header (~115px), doomsday clock (~150px), markets (needs space)
+            // Weather section should not exceed what's left
+            const viewportHeight = window.innerHeight;
+            const reservedHeight = 115 + 150 + 100; // header + doomsday + markets minimum
+            const availableHeight = viewportHeight - reservedHeight;
+            const lineHeight = 20; // Approximate line height
+            const headerLines = 3; // NOW line + 2 separator lines
+            const maxTempLines = Math.max(3, Math.floor((availableHeight / lineHeight) - headerLines));
+            
+            // Show temperature lines (dynamically adjust count, remove bottom lines if needed)
+            const numLines = Math.min(19, maxTempLines);
+            for(let i = 0; i < numLines; i++) {
+                const idx = startIdx + (i * 3);
+                if(idx >= temps.length) break;
+                
+                const date = new Date(times[idx]);
+                const day = days[date.getDay()];
+                const hour = date.getHours();
+                const period = hour === 0 ? '12am' : hour < 12 ? hour + 'am' : hour === 12 ? '12pm' : (hour - 12) + 'pm';
+                
+                const temp = Math.round(temps[idx]);
+                const rainChance = rain[idx] || 0;
+                
+                // Create line with rain displayed inline - only show 15% or higher
+                const periodPadded = period.padEnd(5, ' ');
+                let line = `${day}, ${periodPadded} ${temp}°F`;
+                if(rainChance >= 15) {
+                    line += `  ☔ ${rainChance}%`;
+                }
+                html += line + '\n';
+            }
+            
+            document.getElementById('weather-data').innerHTML = html;
+        }
+
         // Load weather data
         fetch('https://api.open-meteo.com/v1/forecast?latitude=37.7749&longitude=-122.4194&hourly=temperature_2m,precipitation_probability&daily=sunrise,sunset&temperature_unit=fahrenheit&timezone=America/Los_Angeles&forecast_days=3')
             .then(response => {
@@ -498,83 +1486,8 @@
                 return response.json();
             })
             .then(meteoData => {
-                // Check if data structure is valid
-                if (!meteoData.hourly || !meteoData.hourly.temperature_2m) {
-                    throw new Error('Invalid weather data');
-                }
-                
-                // Get current temperature from first hour
-                const currentTemp = Math.round(meteoData.hourly.temperature_2m[0]);
-                
-                // Determine temperature color class
-                let tempClass = 'temp-cool';
-                if (currentTemp <= 50) {
-                    tempClass = 'temp-cold';
-                } else if (currentTemp <= 65) {
-                    tempClass = 'temp-cool';
-                } else if (currentTemp <= 80) {
-                    tempClass = 'temp-warm';
-                } else {
-                    tempClass = 'temp-hot';
-                }
-                
-                let html = `<span class="weather-now">► NOW: <span class="${tempClass}">${currentTemp}°F</span></span>\n`;
-                
-                // Add sunrise/sunset with bars
-                if (meteoData.daily && meteoData.daily.sunrise && meteoData.daily.sunset) {
-                    const sunrise = new Date(meteoData.daily.sunrise[0]).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true}).toLowerCase();
-                    const sunset = new Date(meteoData.daily.sunset[0]).toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true}).toLowerCase();
-                    
-                    html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                    html += `<span class="sun-times">☀ ${sunrise} → ${sunset}</span>\n`;
-                    html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                } else {
-                    html += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                }
-                
-                // Get hourly data
-                const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-                const temps = meteoData.hourly.temperature_2m;
-                const rain = meteoData.hourly.precipitation_probability || [];
-                const times = meteoData.hourly.time;
-                
-                // Start from next 3-hour mark
-                const now = new Date();
-                const currentHour = now.getHours();
-                const nextThreeHour = Math.ceil(currentHour / 3) * 3;
-                
-                let startIdx = 0;
-                for(let i = 0; i < times.length; i++) {
-                    const timeDate = new Date(times[i]);
-                    if(timeDate.getHours() === nextThreeHour % 24 && timeDate > now) {
-                        startIdx = i;
-                        break;
-                    }
-                }
-                
-                // Show 19 three-hour periods (3 more than before)
-                for(let i = 0; i < 19; i++) {
-                    const idx = startIdx + (i * 3);
-                    if(idx >= temps.length) break;
-                    
-                    const date = new Date(times[idx]);
-                    const day = days[date.getDay()];
-                    const hour = date.getHours();
-                    const period = hour === 0 ? '12am' : hour < 12 ? hour + 'am' : hour === 12 ? '12pm' : (hour - 12) + 'pm';
-                    
-                    const temp = Math.round(temps[idx]);
-                    const rainChance = rain[idx] || 0;
-                    
-                    // Create line with rain displayed inline - only show 15% or higher
-                    const periodPadded = period.padEnd(5, ' ');
-                    let line = `${day}, ${periodPadded} ${temp}°F`;
-                    if(rainChance >= 15) {
-                        line += `  ☔ ${rainChance}%`;
-                    }
-                    html += line + '\n';
-                }
-                
-                document.getElementById('weather-data').innerHTML = html;
+                weatherDataCache = meteoData;
+                renderWeatherData(meteoData);
             })
             .catch(err => {
                 console.error('Weather error:', err);
@@ -697,6 +1610,10 @@
         // Redraw on resize
         window.addEventListener('resize', () => {
             fetch('/markets').then(r => r.json()).then(drawMarketsChart).catch(() => {});
+            // Re-render weather with adjusted line count
+            if (weatherDataCache) {
+                renderWeatherData(weatherDataCache);
+            }
         });
 
         // Function to load markets

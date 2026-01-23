@@ -17,6 +17,12 @@ doomsday_cache = {
     'last_updated': None
 }
 
+def get_db():
+    """Get a database connection with proper timeout for concurrent access"""
+    db = sqlite3.connect('events.db', timeout=20.0)
+    db.row_factory = sqlite3.Row
+    return db
+
 def ensure_schema(db: sqlite3.Connection) -> None:
     db.execute('''
         CREATE TABLE IF NOT EXISTS events (
@@ -58,35 +64,42 @@ def serve_fonts(filename):
 
 @app.route('/events')
 def get_events():
-    db = sqlite3.connect('events.db')
-    ensure_schema(db)
-    
-    # Delete events that have passed
-    db.execute('DELETE FROM events WHERE event_date < date("now")')
-    db.commit()
-    
-    # Return each event once, ordered
-    cur = db.execute('''
-        SELECT id, title, date_display, event_date, time 
-        FROM events 
-        WHERE event_date >= date('now') 
-        ORDER BY event_date, time
-    ''')
-    events = []
-    for row in cur:
-        events.append({
-            'id': row[0],
-            'title': row[1],
-            'date': row[2]
-        })
-    db.close()
-    return jsonify(events)
+    db = None
+    try:
+        db = get_db()
+        ensure_schema(db)
+        
+        # Delete events that have passed
+        db.execute('DELETE FROM events WHERE event_date < date("now")')
+        db.commit()
+        
+        # Return each event once, ordered
+        cur = db.execute('''
+            SELECT id, title, date_display, event_date, time 
+            FROM events 
+            WHERE event_date >= date('now') 
+            ORDER BY event_date, time
+        ''')
+        events = []
+        for row in cur:
+            events.append({
+                'id': row[0],
+                'title': row[1],
+                'date': row[2]
+            })
+        return jsonify(events)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 @app.route('/add-event', methods=['POST'])
 def add_event():
+    db = None
     try:
         data = request.get_json(silent=True, force=False) or {}
-        db = sqlite3.connect('events.db')
+        db = get_db()
         ensure_schema(db)
 
         title = (data.get('title') or '').strip()
@@ -115,24 +128,22 @@ def add_event():
         )
         db.commit()
         new_id = cur.lastrowid
-        db.close()
         return jsonify({"status": "ok", "id": new_id})
 
     except Exception as e:
-        try:
-            db.close()
-        except Exception:
-            pass
         return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 @app.route('/delete-event/<int:event_id>', methods=['DELETE'])
 def delete_event(event_id):
+    db = None
     try:
-        db = sqlite3.connect('events.db')
+        db = get_db()
         db.execute('DELETE FROM events WHERE id = ?', (event_id,))
         db.commit()
         deleted = db.total_changes
-        db.close()
         
         if deleted:
             return jsonify({"status": "ok", "message": "Event deleted"})
@@ -140,17 +151,23 @@ def delete_event(event_id):
             return jsonify({"status": "error", "message": "Event not found"}), 404
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 @app.route('/clear-all', methods=['POST'])
 def clear_all():
+    db = None
     try:
-        db = sqlite3.connect('events.db')
+        db = get_db()
         db.execute('DELETE FROM events')
         db.commit()
-        db.close()
         return jsonify({"status": "ok", "message": "All events cleared"})
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 def adj_api_request(endpoint, params=None):
     """Make a request to the Adjacent News API"""
@@ -169,29 +186,35 @@ def adj_api_request(endpoint, params=None):
 @app.route('/markets')
 def get_markets():
     """Get tracked markets with latest prices"""
-    db = sqlite3.connect('events.db')
-    ensure_schema(db)
+    db = None
+    try:
+        db = get_db()
+        ensure_schema(db)
 
-    cur = db.execute('''
-        SELECT m.market_id, m.question, m.platform, m.link,
-               (SELECT probability FROM price_history
-                WHERE market_id = m.market_id
-                ORDER BY recorded_at DESC LIMIT 1) as current_prob
-        FROM tracked_markets m
-    ''')
+        cur = db.execute('''
+            SELECT m.market_id, m.question, m.platform, m.link,
+                   (SELECT probability FROM price_history
+                    WHERE market_id = m.market_id
+                    ORDER BY recorded_at DESC LIMIT 1) as current_prob
+            FROM tracked_markets m
+        ''')
 
-    markets = []
-    for row in cur:
-        markets.append({
-            'market_id': row[0],
-            'question': row[1],
-            'platform': row[2],
-            'link': row[3],
-            'probability': row[4] or 0
-        })
+        markets = []
+        for row in cur:
+            markets.append({
+                'market_id': row[0],
+                'question': row[1],
+                'platform': row[2],
+                'link': row[3],
+                'probability': row[4] or 0
+            })
 
-    db.close()
-    return jsonify(markets)
+        return jsonify(markets)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 @app.route('/markets/search')
 def search_markets():
@@ -232,10 +255,11 @@ def track_market():
 
     market = api_data['data']
 
-    db = sqlite3.connect('events.db')
-    ensure_schema(db)
-
+    db = None
     try:
+        db = get_db()
+        ensure_schema(db)
+
         db.execute('''
             INSERT OR REPLACE INTO tracked_markets (market_id, question, platform, link)
             VALUES (?, ?, ?, ?)
@@ -249,11 +273,12 @@ def track_market():
         ''', (market_id, prob))
 
         db.commit()
-        db.close()
         return jsonify({"status": "ok", "message": "Market added"})
     except Exception as e:
-        db.close()
         return jsonify({"error": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 @app.route('/markets/untrack', methods=['POST'])
 def untrack_market():
@@ -264,43 +289,53 @@ def untrack_market():
     if not market_id:
         return jsonify({"error": "Missing market_id"}), 400
 
-    db = sqlite3.connect('events.db')
-    db.execute('DELETE FROM price_history WHERE market_id = ?', (market_id,))
-    db.execute('DELETE FROM tracked_markets WHERE market_id = ?', (market_id,))
-    db.commit()
-    db.close()
-
-    return jsonify({"status": "ok"})
+    db = None
+    try:
+        db = get_db()
+        db.execute('DELETE FROM price_history WHERE market_id = ?', (market_id,))
+        db.execute('DELETE FROM tracked_markets WHERE market_id = ?', (market_id,))
+        db.commit()
+        return jsonify({"status": "ok"})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 @app.route('/markets/refresh', methods=['POST'])
 def refresh_markets():
     """Fetch latest prices for all tracked markets"""
-    db = sqlite3.connect('events.db')
-    ensure_schema(db)
+    db = None
+    try:
+        db = get_db()
+        ensure_schema(db)
 
-    cur = db.execute('SELECT market_id FROM tracked_markets')
-    market_ids = [row[0] for row in cur.fetchall()]
+        cur = db.execute('SELECT market_id FROM tracked_markets')
+        market_ids = [row[0] for row in cur.fetchall()]
 
-    updated = 0
-    for market_id in market_ids:
-        api_data = adj_api_request(f'/api/markets/{market_id}')
-        if api_data and 'data' in api_data:
-            prob = api_data['data'].get('probability', 0)
-            # Update the tracked market's current probability
-            db.execute('''
-                UPDATE tracked_markets SET question = ?
-                WHERE market_id = ?
-            ''', (api_data['data'].get('question', ''), market_id))
-            db.execute('''
-                INSERT INTO price_history (market_id, probability)
-                VALUES (?, ?)
-            ''', (market_id, prob))
-            updated += 1
+        updated = 0
+        for market_id in market_ids:
+            api_data = adj_api_request(f'/api/markets/{market_id}')
+            if api_data and 'data' in api_data:
+                prob = api_data['data'].get('probability', 0)
+                # Update the tracked market's current probability
+                db.execute('''
+                    UPDATE tracked_markets SET question = ?
+                    WHERE market_id = ?
+                ''', (api_data['data'].get('question', ''), market_id))
+                db.execute('''
+                    INSERT INTO price_history (market_id, probability)
+                    VALUES (?, ?)
+                ''', (market_id, prob))
+                updated += 1
 
-    db.commit()
-    db.close()
-
-    return jsonify({"status": "ok", "updated": updated})
+        db.commit()
+        return jsonify({"status": "ok", "updated": updated})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        if db:
+            db.close()
 
 def calculate_doomsday():
     """Calculate daily probability of catastrophic event based on prediction markets"""
