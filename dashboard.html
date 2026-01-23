@@ -239,7 +239,7 @@
 <body>
     <!-- Top Header Bar -->
     <div class="top-bar">
-        <div class="top-bar-left">SF-DASHBOARD v1.0</div>
+        <div class="top-bar-left">VIVARIUM-DASHBOARD v0.2</div>
         <div class="top-bar-center" id="current-time"></div>
         <div class="top-bar-right">ONLINE</div>
     </div>
@@ -397,7 +397,7 @@
 
         // Function to load events
         function loadEvents() {
-            fetch('http://localhost:5000/events')
+            fetch('/events')
                 .then(r => r.json())
                 .then(events => {
                     const list = document.getElementById('list');
