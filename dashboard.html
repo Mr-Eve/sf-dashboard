@@ -653,10 +653,78 @@
             letter-spacing:0.5px;
         }
         
+        /* Market ticker bar */
+        .market-ticker {
+            background:var(--bg-main);
+            border-top:2px solid var(--border-color);
+            border-bottom:1px solid var(--border-color);
+            height:32px;
+            overflow:hidden;
+            position:relative;
+            white-space:nowrap;
+        }
+        
+        .ticker-content {
+            display:inline-block;
+            animation:scroll 120s linear infinite;
+            padding-left:100%;
+        }
+        
+        .ticker-content:hover {
+            animation-play-state:paused;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform:translateX(0);
+            }
+            100% {
+                transform:translateX(-50%);
+            }
+        }
+        
+        .ticker-item {
+            display:inline-block;
+            padding:0 30px;
+            font-size:13px;
+            color:var(--text-color);
+            border-right:1px solid var(--text-muted);
+        }
+        
+        .ticker-item:last-child {
+            border-right:none;
+        }
+        
+        .ticker-market-name {
+            color:var(--text-color);
+            margin-right:8px;
+        }
+        
+        .ticker-probability {
+            font-weight:bold;
+            padding:2px 6px;
+            border-radius:2px;
+        }
+        
+        .ticker-probability.low {
+            color:#0af;
+            background:rgba(0, 170, 255, 0.1);
+        }
+        
+        .ticker-probability.medium {
+            color:#fa0;
+            background:rgba(255, 170, 0, 0.1);
+        }
+        
+        .ticker-probability.high {
+            color:#f33;
+            background:rgba(255, 51, 51, 0.1);
+        }
+        
         /* Status bar */
         .status-bar {
             background:var(--bg-main);
-            border-top:2px solid var(--border-color);
+            border-top:1px solid var(--border-color);
             padding:8px 20px;
             display:flex;
             justify-content:space-between;
@@ -992,6 +1060,11 @@
             <div id="date-header">Loading...</div>
             <div id="list">Loading events...</div>
         </div>
+    </div>
+    
+    <!-- Market Ticker -->
+    <div class="market-ticker" id="market-ticker">
+        <div class="ticker-content" id="ticker-content"></div>
     </div>
     
     <!-- Status Bar -->
@@ -1616,6 +1689,59 @@
             }
         });
 
+        // Function to update market ticker
+        function updateMarketTicker(markets) {
+            const tickerContent = document.getElementById('ticker-content');
+            
+            if (!markets || markets.length === 0) {
+                tickerContent.innerHTML = '<div class="ticker-item"><span class="ticker-market-name">NO MARKETS AVAILABLE</span></div>';
+                return;
+            }
+            
+            // Filter to markets with meaningful probabilities and sort by probability
+            const activeMarkets = markets
+                .filter(m => m.probability > 0 && m.probability < 100 && m.question)
+                .sort((a, b) => {
+                    const probA = a.probability > 1 ? a.probability : a.probability * 100;
+                    const probB = b.probability > 1 ? b.probability : b.probability * 100;
+                    return probB - probA;
+                })
+                .slice(0, 20); // Limit to top 20 markets
+            
+            if (activeMarkets.length === 0) {
+                tickerContent.innerHTML = '<div class="ticker-item"><span class="ticker-market-name">NO ACTIVE MARKETS</span></div>';
+                return;
+            }
+            
+            // Create ticker items
+            let html = '';
+            activeMarkets.forEach(market => {
+                const prob = market.probability > 1 ? market.probability : market.probability * 100;
+                const probDisplay = prob.toFixed(1);
+                
+                // Determine probability class (low < 30%, medium 30-70%, high > 70%)
+                let probClass = 'low';
+                if (prob >= 70) {
+                    probClass = 'high';
+                } else if (prob >= 30) {
+                    probClass = 'medium';
+                }
+                
+                // Truncate long market names
+                const marketName = market.question.length > 50 
+                    ? market.question.substring(0, 47) + '...' 
+                    : market.question;
+                
+                html += `<div class="ticker-item">
+                    <span class="ticker-market-name">${marketName}</span>
+                    <span class="ticker-probability ${probClass}">${probDisplay}%</span>
+                </div>`;
+            });
+            
+            // Duplicate content for seamless loop
+            tickerContent.innerHTML = html + html;
+        }
+        
         // Function to load markets
         function loadMarkets() {
             fetch('/markets')
@@ -1623,6 +1749,7 @@
                 .then(markets => {
                     document.getElementById('market-count').textContent = markets.length;
                     drawMarketsChart(markets);
+                    updateMarketTicker(markets);
                 })
                 .catch(err => {
                     console.error('Markets error:', err);
